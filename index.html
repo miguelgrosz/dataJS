@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manipulação de data</title>
+    <style>
+        body{ font-family: Arial; padding: 20px;}
+        label, input, button {display: block; margin: 10px 0;}
+    </style>
+</head>
+<body>
+    <h2> Formulário com Campo de Data</h2>
+    <form id="dateForm">
+        <label for="birthdate">Data de nacimento</label>
+        <input type="date" id="birthdate" name="birthdate">
+        <button type="submit">Enviar</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+          const form = document.getElementById('dateForm');
+    const result = document.getElementById('result');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const dateInput = document.getElementById('birthdate').value;
+        if (!dateInput) {
+            result.textContent = "Por favor, selecione uma data.";
+            return;
+        }
+
+        const date = new Date(dateInput);
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const formattedDate = date.toLocaleDateString('pt-BR', options);
+        // const formattedDate = date.toLocaleDateString('pt-BR');
+
+        result.innerHTML = `
+            <p>Data selecionada: <strong>${formattedDate}</strong></p>
+            <p>Dia da semana: <strong>${date.toLocaleDateString('pt-BR', { weekday: 'long' })}</strong></p>`;
+            
+    });
+</script>
+
+</body>
+</html>
